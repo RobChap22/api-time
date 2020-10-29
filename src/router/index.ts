@@ -13,7 +13,12 @@ const routes: Array<RouteConfig> = [
   {
     path: '/gallery',
     name: 'Gallery',
-    component: Gallery
+    component: () => import('../views/Gallery.vue')
+  },
+  {
+    path: '/photoshow/:id',
+    name: 'PhotoShow',
+    component: () => import('../views/PhotoShow.vue')
   },
 ]
 

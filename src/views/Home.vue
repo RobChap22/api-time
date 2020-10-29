@@ -1,7 +1,14 @@
 <template>
   <v-row>
     <v-col>
-      <h1 to='/gallery' >{{ gallery[0].fields.title }}</h1>
+      <v-btn
+        text
+        rounded
+        to='/gallery'
+      >
+        {{ gallery[0].fields.title }}
+      </v-btn>
+
     </v-col>
   </v-row>
 </template>
@@ -12,7 +19,7 @@
 
 
   export default Vue.extend({
-    name: 'Home',
+
     data() {
       return {
         client: null,
