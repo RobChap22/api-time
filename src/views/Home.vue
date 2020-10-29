@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <h1>{{ post.fields.title }}</h1>
-    <img :src='post.fields.image.fields.file.url' >
-  </div>
+  <v-row>
+    <v-col>
+      <h1 to='/gallery' >{{ gallery[0].fields.title }}</h1>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
@@ -15,19 +16,21 @@
     data() {
       return {
         client: null,
-        post: null,
+        gallery: null,
       }
     },
     mounted() {
       this.client = Contentful.createClient({
           space: "g31dyjc0dhaa",
           accessToken: "RTomXH7fKYbwdsci7vLV4VThsANN4Fv_PydbBNtfueA"
-        })
-      console.log(this.client);
+        }),
+
       this.client
-        .getEntry("1ZHnNklxa1ObDT5CdHOghe")
-        .then(entry => this.post = entry)
+        .getEntries({ 'content_type': 'gallery'})
+        .then((response) => this.gallery = response.items)
         .catch(err => console.log(err));
+
     },
   });
 </script>
+

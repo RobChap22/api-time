@@ -1,0 +1,58 @@
+<template>
+  <v-row>
+    <v-col
+      v-for='(post, i) in posts'
+      :key="i"
+      class="d-flex child-flex"
+      cols="4"
+    >
+      <v-img
+        :src='post.fields.image.fields.file.url'
+        aspect-ratio="1"
+        class="grey lighten-2"
+      >
+        <template v-slot:placeholder>
+          <v-row
+            class="fill-height ma-0"
+            align="center"
+            justify="center"
+          >
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
+      </v-img>
+    </v-col>
+  </v-row>
+</template>
+
+<script lang="ts">
+  import Vue from 'vue';
+  import * as Contentful from 'contentful';
+
+
+  export default Vue.extend({
+    name: 'Home',
+    data() {
+      return {
+        client: null,
+        posts: null,
+      }
+    },
+    mounted() {
+      this.client = Contentful.createClient({
+          space: "g31dyjc0dhaa",
+          accessToken: "RTomXH7fKYbwdsci7vLV4VThsANN4Fv_PydbBNtfueA"
+        }),
+
+      this.client
+        .getEntries({ 'content_type': 'photo'})
+        .then((response) => this.posts = response.items)
+        .catch(err => console.log(err));
+
+    },
+  });
+</script>
+
