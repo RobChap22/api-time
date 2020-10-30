@@ -28,14 +28,13 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import * as Contentful from 'contentful';
+  import { photoShow } from '@/api/apiMethods';
 
 
   export default Vue.extend({
 
     data() {
       return {
-        client: null,
         post: null,
       }
     },
@@ -47,18 +46,9 @@
       }
     },
 
-    mounted() {
-      this.client = Contentful.createClient({
-          space: "g31dyjc0dhaa",
-          accessToken: "RTomXH7fKYbwdsci7vLV4VThsANN4Fv_PydbBNtfueA"
-        }),
-
-
-      this.client
-        .getEntry(this.$route.params.id)
-        .then((entry) => this.post = entry)
-        .catch(console.error)
-
+    async mounted() {
+      const response = await photoShow(this.$route.params.id);
+      this.post = response;
     },
 
   });

@@ -16,26 +16,19 @@
 <script lang="ts">
   import Vue from 'vue';
   import * as Contentful from 'contentful';
+  import { listGalleries } from '@/api/apiMethods';
 
 
   export default Vue.extend({
 
     data() {
       return {
-        client: null,
         gallery: null,
       }
     },
-    mounted() {
-      this.client = Contentful.createClient({
-          space: "g31dyjc0dhaa",
-          accessToken: "RTomXH7fKYbwdsci7vLV4VThsANN4Fv_PydbBNtfueA"
-        }),
-
-      this.client
-        .getEntries({ 'content_type': 'gallery'})
-        .then((response) => this.gallery = response.items)
-        .catch(err => console.log(err));
+    async mounted() {
+      const response = await listGalleries();
+      this.gallery = response.items;
 
     },
   });

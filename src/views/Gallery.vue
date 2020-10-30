@@ -32,26 +32,19 @@
 <script lang="ts">
   import Vue from 'vue';
   import * as Contentful from 'contentful';
+  import { listPhotos } from '@/api/apiMethods';
 
 
   export default Vue.extend({
 
     data() {
       return {
-        client: null,
         posts: null,
       }
     },
-    mounted() {
-      this.client = Contentful.createClient({
-          space: "g31dyjc0dhaa",
-          accessToken: "RTomXH7fKYbwdsci7vLV4VThsANN4Fv_PydbBNtfueA"
-        }),
-
-      this.client
-        .getEntries({ 'content_type': 'photo'})
-        .then((response) => this.posts = response.items)
-        .catch(err => console.log(err));
+    async mounted() {
+      const response = await listPhotos();
+      this.posts = response.items;
     },
 
     methods: {
