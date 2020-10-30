@@ -4,9 +4,11 @@
       <v-btn
         text
         rounded
-        to='/gallery'
+        v-for='(gallery, i) in galleries'
+        :key='i'
+        @click='pushToGallery(gallery.sys.id)'
       >
-        {{ gallery[0].fields.title }}
+        {{ gallery.fields.title }}
       </v-btn>
 
     </v-col>
@@ -23,14 +25,20 @@
 
     data() {
       return {
-        gallery: null,
+        galleries: null,
       }
     },
     async mounted() {
       const response = await listGalleries();
-      this.gallery = response.items;
-
+      this.galleries = response.items;
+      console.log(this.galleries)
     },
+
+    methods: {
+      pushToGallery(id) {
+        return this.$router.push({ name: 'Gallery', params: { id } });
+      }
+    }
   });
 </script>
 

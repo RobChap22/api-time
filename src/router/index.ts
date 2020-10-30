@@ -11,7 +11,7 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: '/gallery',
+    path: '/gallery/:id',
     name: 'Gallery',
     component: () => import('../views/Gallery.vue')
   },

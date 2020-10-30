@@ -11,6 +11,7 @@
         aspect-ratio="1"
         class="grey lighten-2"
         @click='pushToShow(post.sys.id)'
+        @mouseover='handleMouseover(post)'
       >
         <template v-slot:placeholder>
           <v-row
@@ -44,15 +45,19 @@
     },
     async mounted() {
       const response = await listPhotos();
-      this.posts = response.items;
+      this.posts = response.items.filter(ob => ob.fields.gallery.sys.id == this.$route.params.id);
     },
 
     methods: {
       pushToShow(id) {
         return this.$router.push({ name: 'PhotoShow', params: { id } });
-
-      }
+      },
     }
   });
 </script>
 
+<style>
+  .hovered {
+    opacity: 0.5;
+  }
+</style>
