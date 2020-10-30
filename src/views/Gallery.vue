@@ -44,8 +44,8 @@
       }
     },
     async mounted() {
-      const response = await listPhotos();
-      this.posts = response.items.filter(ob => ob.fields.gallery.sys.id == this.$route.params.id);
+      const response = await listPhotos(this.$route.params.id);
+      this.posts = response.items;
     },
 
     methods: {

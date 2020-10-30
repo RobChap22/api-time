@@ -19,9 +19,9 @@ export const listGalleries = async () => {
   }
 };
 
-export const listPhotos = async () => {
+export const listPhotos = async (id) => {
   try {
-    const response = await client.getEntries({ 'content_type': 'photo'});
+    const response = await client.getEntries({ 'content_type': 'photo', 'links_to_entry': id });
     return response as Photo[];
   } catch (error) {
     console.error(error);
